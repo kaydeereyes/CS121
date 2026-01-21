@@ -17,16 +17,30 @@ class Token:
     def get_count(self):
         return self.count
 
-def tokenize(TextFilePath) -> list<Token>:
-    tokenList = list()
-
-    with open(TextFilePath, 'r') as file:
+def open_file(path) -> list:
+    with open(path, 'r') as file:
         content = f.read(100) #Reads the first 100 chars in case of large files
         contentLower = content.lower()
         preprocessedWords = contentLower.split()
         filteredWords = [word for word in preprocessedWords if len(word) >= 3]
+    return filteredWords
+
+def tokenize(TextFilePath) -> list<Token>:
+    tokenList = list()
+
+    filteredWords = open_file(TextFilePath)
     
     tokenSet = set(filteredWords)
+	
+	for word in tokenSet:
+        aToken = Token(tokenSet)
+        aToken.set_count = filteredWords.count(word)
+        tokenList.append(aToken)
+        
+    return tokenList
+
+    
+        
     
     
 
