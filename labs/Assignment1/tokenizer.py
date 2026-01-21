@@ -1,6 +1,7 @@
+import re
 import sys
 import random
-import re
+import typing
 
 class Token:
     def __init__(self, value):
@@ -26,21 +27,24 @@ def open_file(path) -> list:
         filteredWords = [word for word in preprocessedWords if len(word) >= 3]
     return filteredWords
 
-def tokenize(TextFilePath) -> list:
+def tokenize(TextFilePath) -> list[Token]:
     tokenList = list()
 
     filteredWords = open_file(TextFilePath)
-    
-    tokenSet = set(filteredWords)
-	
-    for word in tokenSet:
+    	
+    for word in filteredWords:
         tokenList.append(Token(word))
         
     return tokenList
 
-# def tokenCount(tokenList<Token>): 
-#     for token in set(tokenList): # Can I do this?
-        
+def computeWordFrequencies(tokenList: list[Token]) -> dict[Token, int]:
+    tokenCount = dict()
+
+    for token in tokenList:
+        tokenCount[token] = tokenCount.get(token, 0) + 1
+
+    return tokenCount
+
 
     
         
