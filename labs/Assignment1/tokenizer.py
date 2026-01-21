@@ -3,8 +3,7 @@ import random
 import re
 
 class Token:
-    def __init__(self, type, value):
-        self.type = type
+    def __init__(self, value):
         self.value = value
         self.count = 0
 
@@ -20,23 +19,22 @@ class Token:
 #Should I create a method that just runs all 3? Tokenize, Count, and Print?
 
 def open_file(path) -> list:
-    with open(path, 'r') as file:
+    with open(path, 'r') as f:
         content = f.read(100) #Reads the first 100 chars in case of large files
         contentLower = content.lower()
         preprocessedWords = contentLower.split()
         filteredWords = [word for word in preprocessedWords if len(word) >= 3]
     return filteredWords
 
-def tokenize(TextFilePath) -> list<Token>:
+def tokenize(TextFilePath) -> list:
     tokenList = list()
 
     filteredWords = open_file(TextFilePath)
     
     tokenSet = set(filteredWords)
 	
-	for word in tokenSet:
-        aToken = Token(tokenSet)
-        tokenList.append(aToken)
+    for word in tokenSet:
+        tokenList.append(Token(word))
         
     return tokenList
 
