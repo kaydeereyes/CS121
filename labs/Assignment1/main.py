@@ -1,4 +1,4 @@
-import tokenizer
+import PartA as tokenizer
 
 def main():
     path = input('Please input file path: ')
