@@ -1,0 +1,1 @@
+In the mIddLe of nowhere, a STRING_of_text emerges—with underscores, dashes--and strange tokens like fooBar123 or xXx_TEST_xXx. Emojis aren’t here 🙂 but symbols like <>, [], {}, and () definitely are!!! NewLines might feel implied even when they’re missing, and CAPITALIZATION suddenly SHOUTS for ATTENTION!!!

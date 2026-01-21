@@ -17,6 +17,8 @@ class Token:
     def get_count(self):
         return self.count
 
+#Should I create a method that just runs all 3? Tokenize, Count, and Print?
+
 def open_file(path) -> list:
     with open(path, 'r') as file:
         content = f.read(100) #Reads the first 100 chars in case of large files
@@ -34,10 +36,13 @@ def tokenize(TextFilePath) -> list<Token>:
 	
 	for word in tokenSet:
         aToken = Token(tokenSet)
-        aToken.set_count = filteredWords.count(word)
         tokenList.append(aToken)
         
     return tokenList
+
+# def tokenCount(tokenList<Token>): 
+#     for token in set(tokenList): # Can I do this?
+        
 
     
         

@@ -1,0 +1,1 @@
+Finally, this PARAGRAPH tries to be calm... but fails Miserably!!! MixedCaseWordsCollideWith_snake_case, and URLs-ish things like http//exampleDOTcom show up broken. Quotes “single”, 'double', and backticks coexist with math-ish stuff: 5+5=10, 9*9!=?? Chaos reigns, yet somehow it is still text.
