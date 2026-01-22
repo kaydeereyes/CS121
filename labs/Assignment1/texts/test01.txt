@@ -1,1 +1,4 @@
-Natural language processing enables computers to understand, analyze, and generate human language by breaking text into smaller units such as sentences, words, and symbols. Tokenization is a foundational step in this process, as it converts raw text into tokens that can be processed by algorithms, while preserving meaning across punctuation, numbers, and capitalization. Accurate tokenization improves downstream tasks like sentiment analysis, machine translation, and information retrieval, making it essential for modern language-based systems.
+Natural language processing enables computers to 
+understand, analyze, and generate human language by breaking text into smaller units such as sentences, words, and symbols. Tokenization is a foundational step in this process, as it converts raw text into tokens that can be processed by algorithms, 
+while preserving meaning across punctuation, numbers, and capitalization. Accurate tokenization improves downstream tasks like sentiment analysis, 
+machine translation, and information retrieval, making it essential for modern language-based systems.

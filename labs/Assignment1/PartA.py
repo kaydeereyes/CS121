@@ -3,23 +3,13 @@ import typing
 class Token:
     def __init__(self, word):
         self.word = word
-        self.count = 0
 
     def __eq__(self, other):
         return isinstance(other, Token) and self.word == other.word
 
     def __hash__(self):
         return hash(self.word)
-
-    def increment_count(self): # Do I Need This if i just use the count method?
-        self.count += 1
-
-    def set_count(self, n):
-        self.count = n
-
-    def get_count(self):
-        return self.count
-
+        
     def value(self):
         return self.word
 
@@ -27,21 +17,14 @@ class Token:
 
 def open_file(path) -> list:
     with open(path, 'r') as f:
-        content = f.read(100) #Reads the first 100 chars in case of large files
-        contentLower = content.lower()
-        preprocessedWords = contentLower.split()
-        filteredWords = [word for word in preprocessedWords if len(word) > 3]
-    return filteredWords
-
+        for line in f:
+            for word in line.lower().split():
+                wordAlpha = ''.join(c for c in word if c.isalnum()) #checks if its alphanumeric
+                if len(wordAlpha) > 3:
+                    yield wordAlpha
+            
 def tokenize(TextFilePath) -> list[Token]:
-    tokenList = list()
-
-    filteredWords = open_file(TextFilePath)
-    	
-    for word in filteredWords:
-        tokenList.append(Token(word))
-        
-    return tokenList
+    return [Token(word) for word in open_file(TextFilePath)]
 
 def computeWordFrequencies(tokenList: list[Token]) -> dict[Token, int]:
     tokenCount = dict()
@@ -62,7 +45,14 @@ def runTokenizer(TextFilePath) -> None:
     tokenList = tokenize(TextFilePath)
     tokenCount = computeWordFrequencies(tokenList)
     printTokens(tokenCount)
-        
+
+if __name__ == '__main__':
+    Testing = True
+
+    if Testing:
+        tokenList = tokenize("texts/test01.txt")
+        tokenCount = computeWordFrequencies(tokenList)
+        printTokens(tokenCount)
 
 
     
