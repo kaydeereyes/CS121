@@ -21,21 +21,17 @@ class Token:
 def open_file(path):
     """
     Reads given file line by line. Yields tokens.
-    Runtime: O(n). Within each line, each character is visited exactly once. 
+    Runtime: O(n). Each character is visited exactly once. 
     n = number of characters in the file.
     Exception: handled through encoding utf-8 and errors='ignore'
     """
-    if not path:
-        path = input(f'Input File Path: ').strip()
-
     try:
         with open(path, 'r', encoding='utf-8', errors='ignore') as f:
             for line in f:
                 for word in line.lower().split():
-                    subwords = word.split('-') #Splits Hyphenated
+                    subwords = word.split('-')  # Splits hyphenated words
                     for sub in subwords:
-                        wordAlpha = ''.join(c for c in sub if c.isalnum()) #checks if its alphanumeric
-                        #if len(wordAlpha) >= 3: un comment to detect each word as a key
+                        wordAlpha = ''.join(c for c in sub if c.isalnum())
                         if wordAlpha:
                             yield wordAlpha
     except FileNotFoundError:
@@ -45,7 +41,7 @@ def open_file(path):
         print(f"Error reading file {path}: {e}")
         sys.exit(1)
             
-def tokenize(TextFilePath=None) -> list[Token]:
+def tokenize(TextFilePath: str) -> list[Token]:
     """
     Tokenizes file into a list of Tokens.
     Runtime = O(m), where m is the number of tokens generated.
@@ -59,13 +55,10 @@ def computeWordFrequencies(tokenList: list[Token]) -> dict[Token, int]:
     Explanation: Each token is visited exactly once. Dictionary lookup and insertion is O(1).
     """
     tokenCount = dict()
-
     for token in tokenList:
         tokenCount[token] = tokenCount.get(token, 0) + 1
 
-    sortedCount = dict(sorted(tokenCount.items(), 
-                              key=lambda item: item[1], reverse = True))
-
+    sortedCount = dict(sorted(tokenCount.items(), key=lambda item: item[1], reverse=True))
     return sortedCount
 
 def printTokens(tokens: dict[Token, int]) -> None:
@@ -76,15 +69,20 @@ def printTokens(tokens: dict[Token, int]) -> None:
     for token, count in tokens.items():
         print(f'{token.value()} {count}\n')
 
-def getFileFrequencies(path=None):
+def getFileFrequencies(path: str):
     """
-    Convience Method to assist Part B and reduce duplicated code. 
+    Convenience Method to assist Part B and reduce duplicated code. 
     Runtime: O(n), where n = number of characters in the file.
     """
-    
     tokens = tokenize(path)
     return computeWordFrequencies(tokens)
 
 if __name__ == '__main__':
-    tokenCount = getFileFrequencies()
+
+    if len(sys.argv) != 2:
+        print("Usage: python PartA.py <input_file>")
+        sys.exit(1)
+
+    input_file = sys.argv[1]  # Get file name from command-line
+    tokenCount = getFileFrequencies(input_file)
     printTokens(tokenCount)
