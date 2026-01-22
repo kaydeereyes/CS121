@@ -55,7 +55,7 @@ def runTokenizer(TextFilePath = None) -> None:
     printTokens(tokenCount)
 
 if __name__ == '__main__':
-    Testing = True
+    Testing = False
 
     if Testing:
         tokenList = tokenize("texts/test02.txt")
