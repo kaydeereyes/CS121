@@ -13,9 +13,10 @@ class Token:
     def value(self):
         return self.word
 
-#Should I create a method that just runs all 3? Tokenize, Count, and Print?
-
 def open_file(path) -> list:
+    if not path:
+        path = input(f'Input File Path: ').strip()
+    
     with open(path, 'r') as f:
         for line in f:
             for word in line.lower().split():
@@ -23,7 +24,7 @@ def open_file(path) -> list:
                 if len(wordAlpha) > 3:
                     yield wordAlpha
             
-def tokenize(TextFilePath) -> list[Token]:
+def tokenize(TextFilePath=None) -> list[Token]:
     return [Token(word) for word in open_file(TextFilePath)]
 
 def computeWordFrequencies(tokenList: list[Token]) -> dict[Token, int]:
@@ -53,6 +54,8 @@ if __name__ == '__main__':
         tokenList = tokenize("texts/test01.txt")
         tokenCount = computeWordFrequencies(tokenList)
         printTokens(tokenCount)
+
+    runTokenizer()
 
 
     
