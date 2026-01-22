@@ -13,7 +13,7 @@ class Token:
     def value(self):
         return self.word
 
-def open_file(path) -> list:
+def open_file(path):
     if not path:
         path = input(f'Input File Path: ').strip()
     
@@ -21,8 +21,8 @@ def open_file(path) -> list:
         for line in f:
             for word in line.lower().split():
                 wordAlpha = ''.join(c for c in word if c.isalnum()) #checks if its alphanumeric
-                if len(wordAlpha) > 3:
-                    yield wordAlpha
+                #if len(wordAlpha) >= 3: un comment to detect each word as a key
+                yield wordAlpha
             
 def tokenize(TextFilePath=None) -> list[Token]:
     return [Token(word) for word in open_file(TextFilePath)]
@@ -42,7 +42,7 @@ def printTokens(tokens: dict[Token, int]) -> None:
     for token, count in tokens.items():
         print(f'{token.value()} {count}\n')
 
-def runTokenizer(TextFilePath) -> None:
+def runTokenizer(TextFilePath = None) -> None:
     tokenList = tokenize(TextFilePath)
     tokenCount = computeWordFrequencies(tokenList)
     printTokens(tokenCount)
@@ -51,11 +51,11 @@ if __name__ == '__main__':
     Testing = True
 
     if Testing:
-        tokenList = tokenize("texts/test01.txt")
+        tokenList = tokenize("texts/test02.txt")
         tokenCount = computeWordFrequencies(tokenList)
         printTokens(tokenCount)
-
-    runTokenizer()
+    else:
+        runTokenizer()
 
 
     
