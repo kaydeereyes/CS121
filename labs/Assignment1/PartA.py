@@ -1,6 +1,11 @@
 import typing
+import sys
 
 class Token:
+    """
+    Represents a token derived from a text.
+    """
+
     def __init__(self, word):
         self.word = word
 
@@ -14,23 +19,45 @@ class Token:
         return self.word
 
 def open_file(path):
+    """
+    Reads given file line by line. Yields tokens.
+    Runtime: O(n). Within each line, each character is visited exactly once. 
+    n = number of characters in the file.
+    Exception: handled through encoding utf-8 and errors='ignore'
+    """
     if not path:
         path = input(f'Input File Path: ').strip()
-    
-    with open(path, 'r') as f:
-        for line in f:
-            for word in line.lower().split():
-                subwords = word.split('-') #Splits Hyphenated
-                for sub in subwords:
-                    wordAlpha = ''.join(c for c in sub if c.isalnum()) #checks if its alphanumeric
-                    #if len(wordAlpha) >= 3: un comment to detect each word as a key
-                    if wordAlpha:
-                        yield wordAlpha
+
+    try:
+        with open(path, 'r', encoding='utf-8', errors='ignore') as f:
+            for line in f:
+                for word in line.lower().split():
+                    subwords = word.split('-') #Splits Hyphenated
+                    for sub in subwords:
+                        wordAlpha = ''.join(c for c in sub if c.isalnum()) #checks if its alphanumeric
+                        #if len(wordAlpha) >= 3: un comment to detect each word as a key
+                        if wordAlpha:
+                            yield wordAlpha
+    except FileNotFoundError:
+        print(f"Error: File not found: {path}")
+        sys.exit(1)
+    except Exception as e:
+        print(f"Error reading file {path}: {e}")
+        sys.exit(1)
             
 def tokenize(TextFilePath=None) -> list[Token]:
+    """
+    Tokenizes file into a list of Tokens.
+    Runtime = O(m), where m is the number of tokens generated.
+    """
     return [Token(word) for word in open_file(TextFilePath)]
 
 def computeWordFrequencies(tokenList: list[Token]) -> dict[Token, int]:
+    """
+    Computes frequencies of each Token.
+    Runtime = O(m), where m = number of tokens.
+    Explanation: Each token is visited exactly once. Dictionary lookup and insertion is O(1).
+    """
     tokenCount = dict()
 
     for token in tokenList:
@@ -42,24 +69,22 @@ def computeWordFrequencies(tokenList: list[Token]) -> dict[Token, int]:
     return sortedCount
 
 def printTokens(tokens: dict[Token, int]) -> None:
+    """
+    Prints tokens and their given frequencies.
+    Runtime: O(k), where k = number of unique tokens.
+    """
     for token, count in tokens.items():
         print(f'{token.value()} {count}\n')
 
 def getFileFrequencies(path=None):
+    """
+    Convience Method to assist Part B and reduce duplicated code. 
+    Runtime: O(n), where n = number of characters in the file.
+    """
+    
     tokens = tokenize(path)
     return computeWordFrequencies(tokens)
 
-def runTokenizer(TextFilePath = None) -> None:
-    tokenList = tokenize(TextFilePath)
-    tokenCount = computeWordFrequencies(tokenList)
-    printTokens(tokenCount)
-
 if __name__ == '__main__':
-    Testing = False
-
-    if Testing:
-        tokenList = tokenize("texts/test02.txt")
-        tokenCount = computeWordFrequencies(tokenList)
-        printTokens(tokenCount)
-    else:
-        runTokenizer()
+    tokenCount = getFileFrequencies()
+    printTokens(tokenCount)
