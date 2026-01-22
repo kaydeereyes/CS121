@@ -42,6 +42,10 @@ def printTokens(tokens: dict[Token, int]) -> None:
     for token, count in tokens.items():
         print(f'{token.value()} {count}\n')
 
+def getFileFrequencies(path: str):
+    tokens = tokenize(path)
+    return computeWordFrequencies(tokens)
+
 def runTokenizer(TextFilePath = None) -> None:
     tokenList = tokenize(TextFilePath)
     tokenCount = computeWordFrequencies(tokenList)
