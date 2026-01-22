@@ -1,9 +1,8 @@
 import PartA as tokenizer
 
 def findIntersection(freqA: dict, freqB: dict) -> dict:
-    intersection = {k: abs(freqA[k] - freqB[k])
-                    for k in freqA.keys() & freqB.keys()
-                    if freqA[k] != freqB[k]}
+    intersection = {k: min(freqA[k], freqB[k])
+                    for k in freqA.keys() & freqB.keys()}
 
     return intersection
 

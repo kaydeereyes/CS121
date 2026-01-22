@@ -42,7 +42,7 @@ def printTokens(tokens: dict[Token, int]) -> None:
     for token, count in tokens.items():
         print(f'{token.value()} {count}\n')
 
-def getFileFrequencies(path: str):
+def getFileFrequencies(path=None):
     tokens = tokenize(path)
     return computeWordFrequencies(tokens)
 
@@ -60,16 +60,3 @@ if __name__ == '__main__':
         printTokens(tokenCount)
     else:
         runTokenizer()
-
-
-    
-        
-    
-    
-
-    
-
-
-    
-
-
