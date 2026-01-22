@@ -20,9 +20,12 @@ def open_file(path):
     with open(path, 'r') as f:
         for line in f:
             for word in line.lower().split():
-                wordAlpha = ''.join(c for c in word if c.isalnum()) #checks if its alphanumeric
-                #if len(wordAlpha) >= 3: un comment to detect each word as a key
-                yield wordAlpha
+                subwords = word.split('-') #Splits Hyphenated
+                for sub in subwords:
+                    wordAlpha = ''.join(c for c in sub if c.isalnum()) #checks if its alphanumeric
+                    #if len(wordAlpha) >= 3: un comment to detect each word as a key
+                    if wordAlpha:
+                        yield wordAlpha
             
 def tokenize(TextFilePath=None) -> list[Token]:
     return [Token(word) for word in open_file(TextFilePath)]
